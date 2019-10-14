@@ -34,6 +34,8 @@ class LoginForm extends React.Component {
     })
   }
   async doLogin(){
+    console.log("username: " + this.state.username)
+    console.log("password: " + this.state.password)
     if(!this.state.username) return;
     if(!this.state.password) return;
 
@@ -42,7 +44,7 @@ class LoginForm extends React.Component {
     })
 
     try {
-      let res = await fetch('/login', {
+      let res = await fetch('127.0.0.1:3001/login', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -57,7 +59,6 @@ class LoginForm extends React.Component {
       if(result && result.success){
         UserStore.isLoggedIn = true;
         UserStore.username = result.username;
-        UserStore.credits = result.credits;
       } else if(result && !result.success){
         this.resetForm();
         alert(result.msg);

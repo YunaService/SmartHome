@@ -7,10 +7,6 @@ class Router {
         this.login(app, db);
         this.logout(app, db);
         this.isLoggedIn(app, db);
-        this.getCredits(app, db);
-        this.getAccessorys(app, db);
-        this.getItems(app, db);
-        //buyAccessorys
     }
 
     login(app, db){
@@ -96,91 +92,6 @@ class Router {
                             credits: data[0].credits
                         })
                         return true;
-                    }else{
-                        res.json({
-                            success: false
-                        })
-                    }
-                })
-            }else{
-                res.json({
-                    success:false
-                })
-            }
-        })
-    }
-
-    getCredits(app, db){
-        app.post('/getCredits', (req, res) => {
-            if(req.session.userID){
-                let cols = [req.session.userID];
-                db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
-                    if(data && data.length == 1){
-                        res.json({
-                            success: true,
-                            username: data[0].username,
-                            credits: data[0].credits
-                        })
-                        return true;
-                    }else{
-                        res.json({success:false})
-                    }
-                })
-            }else{
-                res.json({success:false})
-            }
-        })
-    }
-
-    getAccessorys(app, db){
-        app.post('/getAccessorys', (req, res) => {
-            db.query('SELECT * FROM `accessory`', (err, data, fields) => {
-                if(err){
-                    res.json({success: false})
-                    return false;
-                }
-                res.json({
-                    success: true,
-                    accessorys: data
-                })
-                return true;
-            })
-        })
-    }
-
-    getItems(app, db){
-        app.post('/getItems', (req, res) => {
-            db.query('SELECT * FROM `item`', (err, data, fields) => {
-                if(err){
-                    res.json({success: false})
-                    return false;
-                }
-                res.json({
-                    success: true,
-                    accessorys: data
-                })
-                return true;
-            })
-        })
-    }
-
-    getInventory(app, db){
-        app.post('/getInventory', (req, res) => {
-            if(req.session.userID){
-                let cols = [req.session.userID];
-                db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
-                    if(data && data.length===1){
-                        db.query('SELECT id, name, description, image FROM `userinventory`, `item` WHERE user_id = ? and `userinventory`,`item_id` = `item`.`id`',cols, (err, data, fields) => {
-                            if(err){
-                                res.json({success: false})
-                                return false;
-                            }
-                            res.json({
-                                success: true,
-                                accessorys: data
-                            })
-                            return true;
-                        })
                     }else{
                         res.json({
                             success: false

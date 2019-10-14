@@ -5,7 +5,7 @@ import {observer} from 'mobx-react';
 import UserStore from './stores/UserStore';
 
 import LoginForm from './LoginForm';
-import InputField from './InputField';
+//import InputField from './InputField';
 import SubmitButton from './SubmitButton';
 
 import './App.css';
@@ -15,7 +15,7 @@ class App extends React.Component {
   async componentDidMount(){
     try{
 
-      let res = await fetch('/isLoggedIn', {
+      let res = await fetch('127.0.0.1:3001/isLoggedIn', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -28,12 +28,10 @@ class App extends React.Component {
         UserStore.loading = false;
         UserStore.isLoggedIn = true;
         UserStore.username = result.username;
-        UserStore.credits = result.credits;
       }else{
         UserStore.loading = false;
         UserStore.isLoggedIn = false;
         UserStore.username = '';
-        UserStore.credits = 0.0;
       }
 
 
@@ -41,13 +39,12 @@ class App extends React.Component {
       UserStore.loading = false;
       UserStore.isLoggedIn = false;
       UserStore.username = '';
-      UserStore.credits = 0.0;
     }
   }
   async doLogout(){
     try{
 
-      let res = await fetch('/logout', {
+      let res = await fetch('127.0.0.1:3001/logout', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -59,7 +56,6 @@ class App extends React.Component {
       if(result && result.success){
         UserStore.isLoggedIn = false;
         UserStore.username = '';
-        UserStore.credits = 0.0;
       }
 
     }catch(e){
@@ -67,26 +63,6 @@ class App extends React.Component {
     }
   }
 
-  async getCredits(){
-    try{
-
-      let res = await fetch('/getCredits', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      let result = await res.json();
-
-      if(result && result.success){
-        UserStore.credits = result.credits;
-      }
-
-    }catch(e){
-      console.log(e)
-    }
-  }
 
   render(){
 
@@ -105,11 +81,6 @@ class App extends React.Component {
             <div className="container">
               Welcome {UserStore.username}!
               <SubmitButton
-                text={UserStore.credits + " credits!"}
-                disabled={false}
-                onClick={ () => this.getCredits()}
-              />
-              <SubmitButton
                 text={'Log out'}
                 disabled={false}
                 onClick={ () => this.doLogout()}
@@ -125,7 +96,6 @@ class App extends React.Component {
            </div>
           </div>
           )
-
       }
     }
   }

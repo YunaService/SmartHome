@@ -15,7 +15,7 @@ console.log('Testing Server')
 const db = mysql.createConnection({
     host:'localhost',
     user:'root',
-    database:'bitlife'
+    database:'smarthome'
 });
 
 db.connect(function(err) {
@@ -52,4 +52,4 @@ app.get('/', function(req, res) {
 });
 
 
-app.listen(3000);
+app.listen(3001);
