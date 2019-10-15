@@ -11,6 +11,8 @@ class Router {
 
     login(app, db){
         app.post('/login', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             let username = req.body.username;
             let password = req.body.password;
             
@@ -65,6 +67,8 @@ class Router {
 
     logout(app, db){
         app.post('/logout', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             if(req.session.userID){
                 req.session.destroy();
                 res.json({
@@ -82,6 +86,8 @@ class Router {
 
     isLoggedIn(app, db){
         app.post('/isLoggedIn', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "no-cros");
             if(req.session.userID){
                 let cols = [req.session.userID];
                 db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {

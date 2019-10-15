@@ -51,6 +51,8 @@ app.use(session({
 new Router(app, db);
 
 app.get('/', function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
