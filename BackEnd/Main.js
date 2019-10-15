@@ -5,6 +5,9 @@ const mysql         = require('mysql');
 const session       = require('express-session');
 const MySQLStore    = require('express-mysql-session')(session)
 const Router        = require('./Router.js')
+const morgan = require('morgan');
+
+app.use(morgan('short'));
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
@@ -13,7 +16,7 @@ console.log('Testing Server')
 
 //Database
 const db = mysql.createConnection({
-    host:'localhost',
+    host:'10.33.156.227',
     user:'root',
     database:'smarthome'
 });
@@ -52,4 +55,4 @@ app.get('/', function(req, res) {
 });
 
 
-app.listen(3001);
+app.listen(3000);

@@ -15,7 +15,7 @@ class App extends React.Component {
   async componentDidMount(){
     try{
 
-      let res = await fetch('127.0.0.1:3001/isLoggedIn', {
+      let res = await fetch(UserStore.server + '/isLoggedIn', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -44,7 +44,7 @@ class App extends React.Component {
   async doLogout(){
     try{
 
-      let res = await fetch('127.0.0.1:3001/logout', {
+      let res = await fetch(UserStore.server + '/logout', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -76,18 +76,34 @@ class App extends React.Component {
       )
     }else{
       if(UserStore.isLoggedIn){
-        return (
-          <div className="app">
-            <div className="container">
-              Welcome {UserStore.username}!
-              <SubmitButton
-                text={'Log out'}
-                disabled={false}
-                onClick={ () => this.doLogout()}
-              />
-           </div>
-          </div>
-        )
+        if(UserStore.page === "home"){
+          return (
+            <div className="app">
+              <div className="container">
+                {UserStore.page}!
+              </div>
+              <div className="footer">
+               <div className="home">home</div>
+              </div>
+            </div>
+            
+          )
+        }else{
+          return (
+            <div className="app">
+              <div className="container">
+                Welcome {UserStore.username}!
+                <SubmitButton
+                  text={'Log out'}
+                  disabled={false}
+                  onClick={ () => this.doLogout()}
+                />
+             </div>
+            </div>
+          )
+        }
+
+        
       }else{
         return (
           <div className="app">

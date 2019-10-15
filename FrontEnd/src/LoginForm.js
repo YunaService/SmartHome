@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
     })
 
     try {
-      let res = await fetch('127.0.0.1:3001/login', {
+      let res = await fetch(UserStore.server + '/login', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -93,7 +93,7 @@ class LoginForm extends React.Component {
         <SubmitButton
           text='Login'
           disabled={this.state.buttonDisabled}
-          onClick={this.doLogin()}
+          onClick={() => this.doLogin()}
         />
       </div>
     );

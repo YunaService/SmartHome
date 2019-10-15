@@ -8,9 +8,10 @@ import { extendObservable } from 'mobx';
      constructor(){
         extendObservable(this, {
              loading: true,
+             server: 'http://10.33.156.50:3000',
              isLoggedIn: false,
              username: '',
-             credits: 0.0
+             page: 'home'
 
          })
      }
