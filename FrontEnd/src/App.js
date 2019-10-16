@@ -7,7 +7,7 @@ import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 //import InputField from './InputField';
 import SubmitButton from './SubmitButton';
-//import MenuButton from './MenuButton';
+//import Button from './Button';
 
 import './App.css';
 import HomePage from './pages/HomePage';
@@ -95,10 +95,10 @@ UserStore.username = "Test";
         if(UserStore.page === "settings"){
           return (
             <div className="app">
-              <div className="header">
-                SmartHome
-              </div>
               <div className="container">
+              <div className="header">
+                Settings
+              </div>
                 <SettingsPage />
               </div>
               <Footer />

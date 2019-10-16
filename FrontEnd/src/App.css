@@ -20,24 +20,18 @@ body, html, #root, .app {
 .header {
   height: 9%;
   position: fixed;
-  color: #99AAB5;
-  text-align: center;
-  height: 9%;
-  position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  color: #99AAB5;
+  color: #FFF;
   text-align: center;
-  background-color: #2C2F33;
+  background-color: #7289DA;
 }
 .footer {
   height: 9%;
   position: fixed;
   color: #99AAB5;
   text-align: center;
-  height: 9%;
-  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
