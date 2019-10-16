@@ -39,6 +39,14 @@ body, html, #root, .app {
   text-align: center;
   background-color: #2C2F33;
 }
+.footer img {
+  margin: auto;
+  width: 10%;
+  top: auto;
+  float: left;
+  padding: 3%;
+  background-color: rgb(0,0,0,0);
+}
 .menubtn {
   float: left;
   display: block;
