@@ -1,4 +1,5 @@
 import React from 'react';
+import Settingsblockelement from './components/Settingsblockelement';
 
 
 class SettingsPage extends React.Component {
@@ -6,9 +7,22 @@ class SettingsPage extends React.Component {
   render(){
     return (
       <div className="settings">
-        <h1>Settings</h1>
-        <p>Lorem ipsum dolor sit amet, est et quis constituam. His graecis persequeris liberavisse te, accusam consequuntur vel ne. Eu suscipit abhorreant vel, soleat delicatissimi pro an. Duo tibique abhorreant delicatissimi id, dignissim adolescens ea sea. Eu eum minimum iudicabit, id eirmod appellantur duo, eros cibo adversarium te usu. Et vis verterem phaedrum salutatus. Ad tamquam euismod perfecto pro, an ius fugit instructior, has nostrum adolescens honestatis ad.</p>
-      </div>
+        <Settingsblockelement 
+        img="/img/lamp.svg"
+        name="Hue Bridges"
+        onClick={()=>alert("This feature is not available yet!")}
+        />
+        <Settingsblockelement 
+        img="/img/lamp.svg"
+        name="Hue Bridges"
+        onClick={()=>alert("This feature is not available yet!")}
+        />
+        <Settingsblockelement 
+        img="/img/lamp.svg"
+        name="Hue Bridges"
+        onClick={()=>alert("This feature is not available yet!")}
+        />
+       </div>
     );
   }
 }

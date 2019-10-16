@@ -26,6 +26,9 @@ body, html, #root, .app {
   color: #FFF;
   text-align: center;
   background-color: #7289DA;
+  text-anchor: middle;
+  vertical-align: middle;
+  line-height: 90px;
 }
 .footer {
   height: 9%;
@@ -112,8 +115,8 @@ body, html, #root, .app {
   border-radius: 20px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
   color: #FFF;
   text-align: center;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }

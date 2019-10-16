@@ -9,28 +9,28 @@ class Footer extends React.Component {
     return (
       <div className="footer">
       <Image
-      src='/img/lamph.png'
+      src='/img/lamph.svg'
       alt='home'
       onClick={() => {
         UserStore.page = "home";
       }}
       />
       <Image
-      src='/img/temperature.png'
+      src='/img/temperature.svg'
       alt='temperature'
       onClick={() => {
         UserStore.page = "temperature";
       }}
       />
       <Image
-      src='/img/shortcuts.png'
+      src='/img/shortcuts.svg'
       alt='shortcuts'
       onClick={() => {
         UserStore.page = "shortcuts";
       }}
       />
       <Image
-      src='/img/settings.png'
+      src='/img/settings.svg'
       alt='settings'
       onClick={() => {
         UserStore.page = "settings";
