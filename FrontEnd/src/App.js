@@ -7,32 +7,47 @@ import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 //import InputField from './InputField';
 import SubmitButton from './SubmitButton';
+//import MenuButton from './MenuButton';
 
 import './App.css';
+import HomePage from './pages/HomePage';
+import Footer from './pages/Footer';
+import SettingsPage from './pages/SettingsPage';
+
+
+
+var dev = true;
 
 class App extends React.Component {
 
+
   async componentDidMount(){
     try{
-
-      let res = await fetch(UserStore.server + '/isLoggedIn', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      let result = await res.json();
-
-      if(result && result.success){
-        UserStore.loading = false;
-        UserStore.isLoggedIn = true;
-        UserStore.username = result.username;
+      if(dev){
+UserStore.loading = false;
+UserStore.isLoggedIn = true;
+UserStore.username = "Test";
       }else{
-        UserStore.loading = false;
-        UserStore.isLoggedIn = false;
-        UserStore.username = '';
+        let res = await fetch('/isLoggedIn', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        let result = await res.json();
+  
+        if(result && result.success){
+          UserStore.loading = false;
+          UserStore.isLoggedIn = true;
+          UserStore.username = result.username;
+        }else{
+          UserStore.loading = false;
+          UserStore.isLoggedIn = false;
+          UserStore.username = '';
+        }
       }
+      
 
 
     }catch(e){
@@ -44,7 +59,7 @@ class App extends React.Component {
   async doLogout(){
     try{
 
-      let res = await fetch(UserStore.server + '/logout', {
+      let res = await fetch('/logout', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -76,17 +91,32 @@ class App extends React.Component {
       )
     }else{
       if(UserStore.isLoggedIn){
+
+        if(UserStore.page === "settings"){
+          return (
+            <div className="app">
+              <div className="header">
+                SmartHome
+              </div>
+              <div className="container">
+                <SettingsPage />
+              </div>
+              <Footer />
+            </div>
+          )
+        }
         if(UserStore.page === "home"){
           return (
             <div className="app">
+              
               <div className="container">
-                {UserStore.page}!
+              <div className="header">
+                Home
               </div>
-              <div className="footer">
-               <div className="home">home</div>
+                <HomePage />
               </div>
+              <Footer />
             </div>
-            
           )
         }else{
           return (

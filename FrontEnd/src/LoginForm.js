@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
     })
 
     try {
-      let res = await fetch(UserStore.server + '/login', {
+      let res = await fetch('/login', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -76,22 +76,22 @@ class LoginForm extends React.Component {
   render(){
     return (
       <div className="loginForm">
-      
-        Login
+        <img src="/img/schwabbel.png" alt="logo">
+        </img>
         <InputField
         type='text'
-        placeholder='Username'
+        placeholder='Benutzername'
         value={this.state.username ? this.state.username : ''}
         onChange={ (val) => this.setInputValue('username', val) }
         />
         <InputField
         type='password'
-        placeholder='Password'
+        placeholder='●●●●●●●●●'
         value={this.state.password ? this.state.password : ''}
         onChange={ (val) => this.setInputValue('password', val) }
         />
         <SubmitButton
-          text='Login'
+          text='EINLOGGEN'
           disabled={this.state.buttonDisabled}
           onClick={() => this.doLogin()}
         />

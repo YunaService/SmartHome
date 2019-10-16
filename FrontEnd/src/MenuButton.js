@@ -1,10 +1,10 @@
 import React from 'react';
 
-class SubmitButton extends React.Component {
+class MenuButton extends React.Component {
 
   render(){
     return (
-      <div className="submitButton">
+      <div className="menuButton">
         <button 
           className="menubtn"
           disabled={this.props.disabled}
@@ -17,4 +17,4 @@ class SubmitButton extends React.Component {
   }
 }
 
-export default SubmitButton;
+export default MenuButton;

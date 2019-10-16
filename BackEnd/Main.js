@@ -5,7 +5,7 @@ const mysql         = require('mysql');
 const session       = require('express-session');
 const MySQLStore    = require('express-mysql-session')(session)
 const Router        = require('./Router.js')
-const morgan = require('morgan');
+const morgan        = require('morgan');
 
 app.use(morgan('short'));
 
@@ -15,8 +15,8 @@ app.use(express.json());
 console.log('Testing Server')
 
 //Database
-const db = mysql.createConnection({
-    host:'10.33.156.227',
+const db = mysql.createConnection({ 
+    host:'127.0.0.1',
     user:'root',
     database:'smarthome'
 });
@@ -51,8 +51,6 @@ app.use(session({
 new Router(app, db);
 
 app.get('/', function(req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 

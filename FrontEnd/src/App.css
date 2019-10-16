@@ -1,17 +1,58 @@
-body, html, #root, .app, .container {
+body, html, #root, .app {
   width: 100%;
   height: 100%;
 }
 
 
 .container {
+  height: stretch;
   font-size: 28px;
+  position: fixed;
+  left: 0;
+  right: 0;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #282c34;
+  background-color: #23272A;
+}
+.header {
+  height: 9%;
+  position: fixed;
+  color: #99AAB5;
+  text-align: center;
+  height: 9%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  color: #99AAB5;
+  text-align: center;
+  background-color: #2C2F33;
+}
+.footer {
+  height: 9%;
+  position: fixed;
+  color: #99AAB5;
+  text-align: center;
+  height: 9%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #99AAB5;
+  text-align: center;
+  background-color: #2C2F33;
+}
+.menubtn {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
 .loginForm {
@@ -22,20 +63,32 @@ body, html, #root, .app, .container {
  padding-right: 20px;
 }
 
+.loginForm img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .inputField {
  padding-top: 16px;
+ border-radius: 200%;
+ background: #23272A;
 }
 
 .input {
  box-sizing: border-box;
  outline: none;
- border: solid 2px #1189de;
+ border: solid 4px #7289DA;
  border-radius: 4px;
- color: #292929;
+ color: #fff;
  width: 100%;
  padding: 12px;
  font-size: 14px;
- background: rgba(255, 255, 255, 1);
+ background-color: #23272A;
+ border-radius: 20px;
+ text-align: center;
+
 }
 
 .submitButton {
@@ -44,26 +97,21 @@ body, html, #root, .app, .container {
 
 
 .btn {
- width: 100%;
- min-width: 280px;
- color: #565656;
- padding: 12px;
- font-size: 14px;
- font-weight: bold;
- border: solid 2px #1189de;
- border-radius: 4px;
- background: #fff;
- cursor: pointer;
+  width: 100%;
+  background-color: #7289DA;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 20px;
 }
 
-.menubtn {
-  width: 100%;
-  min-width: 280px;
-  color: #565656;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: bold;
-  border: solid 1px #1189de;
-  background: #fff;
-  cursor: pointer;
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #FFF;
+  text-align: center;
+  opacity: 1; /* Firefox */
 }
