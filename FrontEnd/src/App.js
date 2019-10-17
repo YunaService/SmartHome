@@ -14,6 +14,8 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import Footer from './pages/Footer';
 import SettingsPage from './pages/SettingsPage';
+import TemperaturePage from './pages/TemperaturePage';
+import ShortCutsPage from './pages/ShortCutsPage';
 
 class App extends React.Component {
 
@@ -91,23 +93,50 @@ class App extends React.Component {
         if(UserStore.page === "settings"){
           return (
             <div className="app">
+              
+              <div className="container">
               <div className="header">
                 SmartHome
               </div>
-              <div className="container">
                 <SettingsPage />
               </div>
               <Footer />
             </div>
           )
-        }
-        if(UserStore.page === "home"){
+        }else if(UserStore.page === "temperature"){
           return (
             <div className="app">
+              
+              <div className="container">
               <div className="header">
                 SmartHome
               </div>
+                <TemperaturePage />
+              </div>
+              <Footer />
+            </div>
+          )
+        }else 
+        if(UserStore.page === "shortcuts"){
+          return (
+            <div className="app">
               <div className="container">
+              <div className="header">
+              Shortcuts
+              </div>
+                <ShortCutsPage />
+              </div>
+              <Footer />
+            </div>
+          )
+        }else
+        if(UserStore.page === "home"){
+          return (
+            <div className="app">
+              <div className="container">
+              <div className="header">
+                SmartHome
+              </div>
                 <HomePage />
               </div>
               <Footer />

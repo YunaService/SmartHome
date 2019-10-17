@@ -7,6 +7,23 @@ const MySQLStore    = require('express-mysql-session')(session)
 const Router        = require('./Router.js')
 const morgan        = require('morgan');
 
+//Philips-Hue
+const Hue           = require('philips-hue');
+const hue           = new Hue();
+hue.bridge          = "192.168.0.132"; //CANGE ME
+hue.username        = "sDCY2vMQlDjmbiL9OJFFhfIWWWwKzsiDn7yArbP6";
+
+
+hue.getLights()
+  .then(function(lights){
+    console.log(lights);
+    console.log(Object.keys(lights) + " lights found!");
+  })
+  .catch(function(err){
+    console.error(err.stack || err);
+  });
+
+
 app.use(morgan('short'));
 
 app.use(express.static(path.join(__dirname, 'build')));

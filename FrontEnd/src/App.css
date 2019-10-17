@@ -1,6 +1,8 @@
 body, html, #root, .app {
   width: 100%;
   height: 100%;
+  font-family: 'Roboto', 'Light';
+
 }
 
 
@@ -42,7 +44,7 @@ body, html, #root, .app {
   text-align: center;
   background-color: #2C2F33;
 }
-.footer img {
+.footer img, .settingsblock img{
   margin: auto;
   width: 10%;
   top: auto;
@@ -125,10 +127,13 @@ body, html, #root, .app {
   
 }
 .settingsblock{
-  border-left: #99AAB5;
-  border-radius: 1px;
+                 /* top right bottom left */
+  border-width: 0px 0px 0px 7px;
+  border-style: solid solid solid solid;
+  border-color: #fff #fff #fff #7289DA;
   margin-bottom: 10px;
-  background-color: #7289DA;
+  background-color: #99AAB5;
+  color: #2C2F33;
 }
 
 .settings p{
