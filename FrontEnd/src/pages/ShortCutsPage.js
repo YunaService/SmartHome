@@ -29,6 +29,23 @@ class ShortCutsPage extends React.Component {
     alert(result.msg);
   }
 
+  async customeValue(id, value){
+    console.log(id, value);
+    let res = await fetch('/customevalue', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cvid: id,
+        cvv: value
+      }
+    )});
+    let result = await res.json();
+    alert(result.msg);
+  }
+
   render(){
     return (
       <div className="shortcutbox">
@@ -45,12 +62,12 @@ class ShortCutsPage extends React.Component {
         <ShortCutElement
         img="/img/settings.svg"
         name="Custome Aus!"
-        onClick={()=>alert("This feature is not available yet!")}
+        onClick={()=>this.customeValue(1, 0)}
         />
         <ShortCutElement
         img="/img/settings.svg"
         name="Custome An!"
-        onClick={()=>alert("This feature is not available yet!")}
+        onClick={()=>this.customeValue(1, 1)}
         />
       </div>
     );

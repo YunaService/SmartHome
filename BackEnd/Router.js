@@ -16,12 +16,12 @@ class Router {
 
         this.lichtan(app, db);
         this.lichtaus(app, db);
+
+        this.customevalue(app, db);
     }
 
     login(app, db){
         app.post('/login', (req, res) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             let username = req.body.username;
             let password = req.body.password;
             
@@ -154,6 +154,46 @@ class Router {
                         res.json({
                             success: true,
                             msg: "Licht AUS!"
+                        })
+                        return true;
+                    }else{
+                        res.json({
+                            success: false
+                        })
+                    }
+                })
+            }else{
+                res.json({
+                    success:false
+                })
+            }
+        })
+    }
+
+    customevalue(app, db){
+        app.post('/customevalue', (req, res) => {
+            if(req.session.userID){
+                let cols = [req.session.userID];
+                db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
+                    if(data && data.length===1){
+
+                        let cols = [req.body.cvv, req.body.cvid];
+                        console.log(cols);
+                        db.query("UPDATE `customevalues` SET `value` = '?' WHERE `customevalues`.`id` = '?';", cols, (err, data, fields) => {
+                            console.log(err);
+                            console.log(data);
+                            if(err){
+                                res.json({
+                                    success: false,
+                                    msg: err
+                                });
+                            }else{
+                                res.json({
+                                    success: true, 
+                                    msg: "Wurde erfolgreich geändert..."
+                                });
+                            }
+
                         })
                         return true;
                     }else{
