@@ -7,26 +7,23 @@ import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 //import InputField from './InputField';
 import SubmitButton from './SubmitButton';
-//import Button from './Button';
+//import MenuButton from './MenuButton';
+
 
 import './App.css';
 import HomePage from './pages/HomePage';
 import Footer from './pages/Footer';
 import SettingsPage from './pages/SettingsPage';
 
-
-
-var dev = true;
-
 class App extends React.Component {
 
 
   async componentDidMount(){
     try{
-      if(dev){
-UserStore.loading = false;
-UserStore.isLoggedIn = true;
-UserStore.username = "Test";
+      if(true){ //DEV MODE
+        UserStore.loading = false;
+        UserStore.isLoggedIn = true;
+        UserStore.username = "Test"
       }else{
         let res = await fetch('/isLoggedIn', {
           method: 'post',
@@ -36,7 +33,6 @@ UserStore.username = "Test";
           }
         })
         let result = await res.json();
-  
         if(result && result.success){
           UserStore.loading = false;
           UserStore.isLoggedIn = true;
@@ -95,10 +91,10 @@ UserStore.username = "Test";
         if(UserStore.page === "settings"){
           return (
             <div className="app">
-              <div className="container">
               <div className="header">
-                Settings
+                SmartHome
               </div>
+              <div className="container">
                 <SettingsPage />
               </div>
               <Footer />
@@ -108,11 +104,10 @@ UserStore.username = "Test";
         if(UserStore.page === "home"){
           return (
             <div className="app">
-              
-              <div className="container">
               <div className="header">
-                Home
+                SmartHome
               </div>
+              <div className="container">
                 <HomePage />
               </div>
               <Footer />
