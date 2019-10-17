@@ -3,8 +3,8 @@ const app           = express();
 const path          = require('path');
 const mysql         = require('mysql');
 const session       = require('express-session');
-const MySQLStore    = require('express-mysql-session')(session)
-const Router        = require('./Router.js')
+const MySQLStore    = require('express-mysql-session')(session);
+const Router        = require('./Router.js');
 const morgan        = require('morgan');
 
 //Philips-Hue

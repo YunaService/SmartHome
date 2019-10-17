@@ -1,5 +1,11 @@
 const bcrypt = require('bcrypt');
 
+//Philips-Hue
+const Hue           = require('philips-hue');
+const hue           = new Hue();
+hue.bridge          = "192.168.0.132"; //CANGE ME
+hue.username        = "sDCY2vMQlDjmbiL9OJFFhfIWWWwKzsiDn7yArbP6";
+
 
 class Router {
 
@@ -7,6 +13,9 @@ class Router {
         this.login(app, db);
         this.logout(app, db);
         this.isLoggedIn(app, db);
+
+        this.lichtan(app, db);
+        this.lichtaus(app, db);
     }
 
     login(app, db){
@@ -86,8 +95,6 @@ class Router {
 
     isLoggedIn(app, db){
         app.post('/isLoggedIn', (req, res) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "no-cros");
             if(req.session.userID){
                 let cols = [req.session.userID];
                 db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
@@ -96,6 +103,57 @@ class Router {
                             success: true,
                             username: data[0].username,
                             credits: data[0].credits
+                        })
+                        return true;
+                    }else{
+                        res.json({
+                            success: false
+                        })
+                    }
+                })
+            }else{
+                res.json({
+                    success:false
+                })
+            }
+        })
+    }
+    lichtan(app, db){
+        app.post('/lichtan', (req, res) => {
+            if(req.session.userID){
+                let cols = [req.session.userID];
+                db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
+                    if(data && data.length===1){
+                        hue.light(2).on();
+                        res.json({
+                            success: true,
+                            msg: "Licht AN!"
+                        })
+                        return true;
+                    }else{
+                        res.json({
+                            success: false
+                        })
+                    }
+                })
+            }else{
+                res.json({
+                    success:false
+                })
+            }
+        })
+    }
+
+    lichtaus(app, db){
+        app.post('/lichtaus', (req, res) => {
+            if(req.session.userID){
+                let cols = [req.session.userID];
+                db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
+                    if(data && data.length===1){
+                        hue.light(2).off();
+                        res.json({
+                            success: true,
+                            msg: "Licht AUS!"
                         })
                         return true;
                     }else{
