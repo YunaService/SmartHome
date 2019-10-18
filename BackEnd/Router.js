@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 //Philips-Hue
 const Hue           = require('philips-hue');
 const hue           = new Hue();
-hue.bridge          = "192.168.0.132"; //CANGE ME
+hue.bridge          = "10.33.156.4"; //CANGE ME
 hue.username        = "sDCY2vMQlDjmbiL9OJFFhfIWWWwKzsiDn7yArbP6";
 
 
@@ -76,8 +76,6 @@ class Router {
 
     logout(app, db){
         app.post('/logout', (req, res) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             if(req.session.userID){
                 req.session.destroy();
                 res.json({
@@ -101,8 +99,7 @@ class Router {
                     if(data && data.length===1){
                         res.json({
                             success: true,
-                            username: data[0].username,
-                            credits: data[0].credits
+                            username: data[0].username
                         })
                         return true;
                     }else{
@@ -125,6 +122,7 @@ class Router {
                 db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
                     if(data && data.length===1){
                         hue.light(2).on();
+                        hue.light(3).on();
                         res.json({
                             success: true,
                             msg: "Licht AN!"
@@ -151,6 +149,7 @@ class Router {
                 db.query('SELECT * FROM user WHERE id = ? LIMIT 1', cols, (err, data, fields) => {
                     if(data && data.length===1){
                         hue.light(2).off();
+                        hue.light(3).off();
                         res.json({
                             success: true,
                             msg: "Licht AUS!"

@@ -20,43 +20,34 @@ import ShortCutsPage from './pages/ShortCutsPage';
 class App extends React.Component {
 
 
-  async componentDidMount(){
+  async componentDidMount(){ // Setup
     try{
-      if(true){ //DEV MODE
+      let res = await fetch('/isLoggedIn', { // is the User Loggedin???
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let result = await res.json();
+      console.log(result);
+      if(result && result.success){ // YES c:
         UserStore.loading = false;
         UserStore.isLoggedIn = true;
-        UserStore.username = "Test"
-      }else{
-        let res = await fetch('/isLoggedIn', {
-          method: 'post',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-        let result = await res.json();
-        if(result && result.success){
-          UserStore.loading = false;
-          UserStore.isLoggedIn = true;
-          UserStore.username = result.username;
-        }else{
-          UserStore.loading = false;
-          UserStore.isLoggedIn = false;
-          UserStore.username = '';
-        }
+        UserStore.username = result.username;
+      }else{ // Nope :c
+        UserStore.loading = false;
+        UserStore.isLoggedIn = false;
+        UserStore.username = '';
       }
-      
-
-
-    }catch(e){
+    }catch(e){ // Erron on Login Check?!
       UserStore.loading = false;
       UserStore.isLoggedIn = false;
       UserStore.username = '';
     }
   }
-  async doLogout(){
+  async doLogout(){ // Logout Function
     try{
-
       let res = await fetch('/logout', {
         method: 'post',
         headers: {
@@ -77,9 +68,9 @@ class App extends React.Component {
   }
 
 
-  render(){
+  render(){ // Start the Rendering!
 
-    if(UserStore.loading){
+    if(UserStore.loading){ // Loading
       return (
         <div className="app">
           <div className="container">

@@ -10,7 +10,7 @@ const morgan        = require('morgan');
 //Philips-Hue
 const Hue           = require('philips-hue');
 const hue           = new Hue();
-hue.bridge          = "192.168.0.132"; //CANGE ME
+hue.bridge          = "10.33.156.4"; //CANGE ME
 hue.username        = "sDCY2vMQlDjmbiL9OJFFhfIWWWwKzsiDn7yArbP6";
 
 

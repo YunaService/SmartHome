@@ -20,6 +20,7 @@ class SettingsPage extends React.Component {
       if(result && result.success){
         UserStore.isLoggedIn = false;
         UserStore.username = '';
+        UserStore.page = 'home';
       }
 
     }catch(e){
@@ -66,7 +67,7 @@ class SettingsPage extends React.Component {
         />
         <Settingsblockelement 
         img="/img/settings.svg"
-        name="Auslogen"
+        name="Ausloggen"
         onClick={()=>this.doLogout()}
         />
        </div>
