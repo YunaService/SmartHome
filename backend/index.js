@@ -4,6 +4,8 @@ const port = 3000;
 const path = require("path");
 const http = require("http").createServer();
 
+const config = require("./config");
+
 const io = require("socket.io")(http);
 
 const gpiop = require("rpi-gpio").promise; //https://www.npmjs.com/package/rpi-gpio
