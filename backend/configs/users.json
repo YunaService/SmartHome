@@ -1,0 +1,16 @@
+[
+    {
+        "id":1,
+        "name":"Freddi",
+        "key": "",
+        "token": "ahhh",
+        "admin":true
+    },
+    {
+      "id": 2,
+      "name": "test",
+      "key": "",
+      "token": "tee",
+      "admin": false
+    }
+]

@@ -1,0 +1,42 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://localhost');
+
+    
+    socket.on("status", function(data){
+        document.getElementById("state").innerHTML = data.authorized;
+        console.log(data);
+    });
+
+    socket.on("auth", function(data){
+        status();
+        console.log(data);
+        localStorage.setItem("Token", data.Token);
+    });
+
+    socket.on("data", function(data){
+        console.log(data);
+    });
+    function status(){
+        socket.emit("status", {Token: localStorage.getItem('Token')});
+    }
+
+    function auth(auth){ // {<Token | Key>: <value>}
+        socket.emit("auth", auth);
+        status();
+    }
+
+    function logout(){
+        localStorage.removeItem("Token");
+        status();
+    }
+    
+</script>
+
+<div id="state">unknown</div>
+
+<button onclick="logout()">logout</button>
+<button onclick="auth({Token:'djnajkda'})">AuthWithToken</button>
+<button onclick="auth({Name: 'Freddi', Key:'aaa'})">AuthWithKey</button>
+
+<button onclick="status()">Status?</button>

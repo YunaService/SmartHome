@@ -1,0 +1,42 @@
+Socket.io
+
+status {
+    
+}
+
+Client -> Server <token>
+    - Server -> Client <yes && status>
+    - Server -> Client <no && reason>
+
+Client -> Server <set, id, value>
+    - Server -> Client <yes && status>
+    - Server -> Client <no && reason>
+
+Client -> Server <>
+
+
+
+Folders
+app.js
+configs/ownertoken.txt
+    - <token>
+configs/users.json
+    [
+        {
+            "id":"<id>",
+            "name":"<name>",
+            "token":"<token>",
+            "admin":"<true|false>"
+        }
+    ]
+configs/devices.json
+    [
+        {
+            "id":"<id>",
+            "name":"<name>",
+            "icon":"<icon>",
+            "state":"<true | false>"
+            "type":"<relay>"
+        },
+        ...
+    ]

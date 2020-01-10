@@ -1,84 +1,67 @@
-const app = require("express")();
-const port = 3000;
+var app = require("express")();
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+const bcrypt = require("bcrypt");
 
-const path = require("path");
-const fs = require("fs");
+const users = require("./configs/users.json");
 
-const http = require("http").createServer();
-const config = require("./config.json");
-const io = require("socket.io")(http);
+server.listen(80);
+// WARNING: app.listen(80) will NOT work here!
 
-/*const gpiop = require("rpi-gpio").promise; //https://www.npmjs.com/package/rpi-gpio
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
 
-gpiop
-  .setup(40, gpiop.DIR_OUT)
-  .then(() => {
-    return gpiop.write(40, true);
-  })
-  .catch(err => {
-    console.log("Error: ", err.toString());
-  });
-*/
-
-
-function saveConfig() {
-  fs.writeFile("config.json", JSON.stringify(config), "utf8", function(err) {
+const hashPassword = function (password) {
+  bcrypt.hash(password, 10, (err, hash) => {
     if (err) {
-      console.log("An error occured while writing JSON Object to File.");
-      return console.log(err);
+      throw err;
     }
+    console.log("Your hash: ", hash);
+    return hash;
+  })
+};
 
-    console.log("JSON file has been saved.");
+io.on("connection", function (socket) {
+  socket.on("auth", function (data) {
+    if (data) {
+      if (typeof data.Key == "string") {
+        if (data.Key == "aaa") {
+          socket.emit("auth", { success: true, Token: "djnajkda" });
+          return;
+        }
+      }
+      if (typeof data.Token == "string") {
+        if (data.Token == "djnajkda") {
+          socket.emit("auth", { success: true, Token: "djnajkda" });
+          return;
+        }
+      }
+    }
+    socket.emit("auth", { success: false });
   });
-}
 
-app.get('/', function (req, res) {
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    if (ip === "::1") {
-        res.sendFile(path.join(__dirname + "/static/Local.html"));
-    } else {
-        res.send(ip);
-        //res.sendFile(path.join(__dirname + "/static/Public.html"));
-    }  
-});
-
-app.get("/getall", function(req, res) {
-  res.json(config.ports);
-});
-
-app.get("/get/:id", function(req, res) {
-  var id = req.params.id;
-  if (config.ports[id] != null) {
-    res.json(config.ports[id]);
-  }else
-  res.json({});
-});
-
-app.get("/create/:id/:name/:type/:state", function(req, res) {
-  config.ports[req.params.id] = {};
-  config.ports[req.params.id].type = req.params.type;
-  config.ports[req.params.id].state = req.params.state;
-  config.ports[req.params.id].name = req.params.name;
-  saveConfig();
-  res.send("ok");
-});
-
-app.get("/set/:id/:state", function(req, res) {
-  config.ports[req.params.id].state = req.params.state;
-  saveConfig();
-  res.send("ok");
-});
-
-
-io.on("connection", socket => {
-  console.log("+ " + socket.id);
-  io.emit("test", "TZAASDA");
-  socket.emit("welcome", "Hello and welcome to the Socker.io Server");
-  socket.on("disconnect", function() {
-    console.log("- " + socket.id);
+  socket.on("status", function (data) {
+    if (typeof data.Token == "string") {
+      if (data.Token == "djnajkda") {
+        socket.emit("status", { success: true });
+        return;
+      }
+    }
+    socket.emit("status", {
+      authorized: false
+    });
   });
-});
+  socket.on("users", function () {
+    socket.emit("data", users);
+  });
 
-app.listen(port, function() {
-  console.log("Backend is listening on port " + port + "!");
+  socket.on("user", function () {
+    for (u in users) {
+      socket.emit("data", users[u]);
+    }
+  });
+
+
+
 });
