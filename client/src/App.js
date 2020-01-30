@@ -7,6 +7,7 @@ const LOCAL_STORAGE_KEY = 'todos.todos';
 function App() {
   const [todos, setTodos] = useState([]);
   const todoNameRef = useRef();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
