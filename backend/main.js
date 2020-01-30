@@ -1,7 +1,6 @@
 var app = require("express")();
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-const bcrypt = require("bcrypt");
 
 const users = require("./configs/users.json");
 
@@ -12,15 +11,6 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-const hashPassword = function (password) {
-  bcrypt.hash(password, 10, (err, hash) => {
-    if (err) {
-      throw err;
-    }
-    console.log("Your hash: ", hash);
-    return hash;
-  })
-};
 
 io.on("connection", function (socket) {
   socket.on("auth", function (data) {
