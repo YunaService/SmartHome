@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import TodoList from "./TodoList";
-import uuidv4 from 'uuid/v4';
+import TodoList from "./content/TodoList";
+import Loading from "./content/loading";
 
-const LOCAL_STORAGE_KEY = 'todos.todos';
+import uuidv4 from "uuid/v4";
+
+const LOCAL_STORAGE_KEY = "todos.todos";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -31,13 +33,17 @@ function App() {
     console.log(name);
     setTodos(prevTodos => {
       return [...prevTodos, { id: uuidv4(), name: name, complete: false }];
-    })
+    });
     todoNameRef.current.value = null;
   }
 
   function handleClearTodos(e) {
     const newTodos = todos.filter(todo => !todo.complete);
     setTodos(newTodos);
+  }
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
